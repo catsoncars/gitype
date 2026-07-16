@@ -1,0 +1,102 @@
+// Gitype data model
+// Run `pnpm prisma format` then `pnpm prisma migrate dev` after editing.
+
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs" // apps/api has no "type": "module" — match its CommonJS runtime
+}
+
+// Connection URL lives in prisma.config.ts (Prisma 7 moved it out of schema.prisma).
+datasource db {
+  provider = "postgresql"
+}
+
+/// A developer who has signed in via GitHub OAuth (phase two).
+/// Sessions can exist without a user (anonymous play), so the
+/// relation from Session -> User is optional until accounts land.
+model User {
+  id        String    @id @default(cuid())
+  githubId  Int       @unique
+  username  String
+  avatarUrl String?
+  createdAt DateTime  @default(now())
+  sessions  Session[]
+}
+
+/// A cached chunk of source code pulled from a public GitHub repo.
+/// Caching means repeated challenges don't re-hit the GitHub API,
+/// and every session keeps a stable reference to exactly what was typed.
+model Snippet {
+  id         String     @id @default(cuid())
+  // canonical lowercase slug, e.g. "typescript", "python", "rust" — normalize
+  // at ingestion time so per-language stats never fragment on casing/aliases
+  language   String
+  content    String // the code the user types
+  charCount  Int
+  difficulty Difficulty @default(MEDIUM)
+  repoOwner  String
+  repoName   String
+  filePath   String
+  commitSha  String // pins content to an exact commit so sourceUrl never drifts from what was typed
+  sourceUrl  String // blob URL built from commitSha, e.g. .../blob/<commitSha>/<filePath>
+  disabled   Boolean    @default(false) // pulled from rotation (moderation) without deleting session history
+  createdAt  DateTime   @default(now())
+  sessions   Session[]
+
+  @@unique([repoOwner, repoName, filePath, commitSha])
+  @@index([language, difficulty])
+}
+
+/// One completed typing run: headline metrics plus a link to the
+/// per-key breakdown. errorLocations is stored as JSON (an array of
+/// { index, expected, typed }) — cheap to write, and we rarely query
+/// inside it, so it doesn't need its own table yet.
+model Session {
+  id             String           @id @default(cuid())
+  user           User?            @relation(fields: [userId], references: [id])
+  userId         String?
+  snippet        Snippet          @relation(fields: [snippetId], references: [id])
+  snippetId      String
+  language       String // denormalized here for fast per-language stats
+  startedAt      DateTime
+  completedAt    DateTime
+  durationMs     Int
+  wpm            Float
+  rawWpm         Float // speed before the accuracy penalty
+  cpm            Float
+  accuracy       Float // 0–100
+  consistency    Float // 0–100, from the variance of keystroke timing
+  totalChars     Int
+  correctChars   Int
+  incorrectChars Int
+  errorLocations Json // [{ index, expected, typed }, ...]
+  keyStats       SessionKeyStat[]
+  createdAt      DateTime         @default(now())
+
+  @@index([userId])
+  @@index([snippetId])
+  @@index([language])
+  @@index([createdAt])
+}
+
+/// Per-key tally for a single session. Aggregating these across
+/// sessions is how we surface "difficult keys" and per-key accuracy
+/// without having to scan every individual keystroke.
+model SessionKeyStat {
+  id        String  @id @default(cuid())
+  session   Session @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  sessionId String
+  key       String // the character typed, e.g. "{", "a", ";"
+  hits      Int // times typed correctly
+  misses    Int // times mistyped
+
+  @@unique([sessionId, key])
+  @@index([key])
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}

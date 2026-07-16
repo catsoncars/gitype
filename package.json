@@ -1,0 +1,10 @@
+{
+  "name": "gitype",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "pnpm@9.0.0",
+  "scripts": {
+    "dev": "pnpm --parallel --filter \"./apps/*\" run dev",
+    "build": "pnpm --filter \"@gitype/shared\" run build && pnpm --filter \"./apps/*\" run build"
+  }
+}

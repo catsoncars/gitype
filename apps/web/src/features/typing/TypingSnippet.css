@@ -1,0 +1,30 @@
+.typing-snippet {
+  font-family: var(--mono);
+  font-size: 16px;
+  line-height: 165%;
+  white-space: pre-wrap;
+  text-align: left;
+  margin: 0;
+}
+
+.typing-snippet .pending {
+  color: var(--text);
+  opacity: 0.5;
+}
+
+.typing-snippet .correct {
+  color: var(--text-h);
+}
+
+.typing-snippet .incorrect {
+  color: var(--error);
+  background: color-mix(in srgb, var(--error) 15%, transparent);
+  border-radius: 2px;
+}
+
+.typing-snippet .current {
+  color: var(--text-h);
+  background: var(--accent-bg);
+  outline: 1px solid var(--accent-border);
+  border-radius: 2px;
+}

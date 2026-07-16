@@ -1,0 +1,45 @@
+.typing-session {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 760px;
+  cursor: text;
+}
+
+.typing-stats {
+  display: flex;
+  gap: 10px;
+}
+
+.stat-pill {
+  font-family: var(--mono);
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--text-h);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-variant-numeric: tabular-nums;
+}
+
+.typing-card {
+  width: 100%;
+  padding: 32px;
+}
+
+.typing-input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+@media (max-width: 640px) {
+  .typing-card {
+    padding: 20px;
+  }
+}
