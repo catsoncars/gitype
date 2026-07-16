@@ -55,17 +55,30 @@ export async function fetchMe(): Promise<UserProfileDto> {
   return res.json();
 }
 
-export async function fetchLanguageStats(): Promise<LanguageStats[]> {
-  const res = await fetch(`${API_URL}/stats/languages`);
+export type StatsScope = 'global' | 'mine';
+
+export async function fetchLanguageStats(scope: StatsScope = 'global'): Promise<LanguageStats[]> {
+  const token = getToken();
+  const search = scope === 'mine' ? `?${new URLSearchParams({ scope })}` : '';
+  const res = await fetch(`${API_URL}/stats/languages${search}`, {
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+  });
   if (!res.ok) {
     throw new Error(`Failed to fetch language stats (${res.status})`);
   }
   return res.json();
 }
 
-export async function fetchKeyDifficulty(language?: string): Promise<KeyDifficulty[]> {
-  const search = language ? `?${new URLSearchParams({ language })}` : '';
-  const res = await fetch(`${API_URL}/stats/keys${search}`);
+export async function fetchKeyDifficulty(
+  scope: StatsScope = 'global',
+  language?: string,
+): Promise<KeyDifficulty[]> {
+  const token = getToken();
+  const params = { ...(scope === 'mine' ? { scope } : {}), ...(language ? { language } : {}) };
+  const search = Object.keys(params).length ? `?${new URLSearchParams(params)}` : '';
+  const res = await fetch(`${API_URL}/stats/keys${search}`, {
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+  });
   if (!res.ok) {
     throw new Error(`Failed to fetch key difficulty (${res.status})`);
   }

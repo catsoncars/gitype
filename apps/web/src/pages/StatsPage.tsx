@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { KeyDifficulty, LanguageStats } from '@gitype/shared';
-import { fetchKeyDifficulty, fetchLanguageStats } from '../lib/api';
+import { fetchKeyDifficulty, fetchLanguageStats, type StatsScope } from '../lib/api';
+import { useAuth } from '../features/auth/useAuth';
 import { BarChart } from '../features/stats/BarChart';
 import './StatsPage.css';
 
@@ -12,22 +13,28 @@ function formatKeyLabel(key: string): string {
 }
 
 export function StatsPage() {
+  const { user } = useAuth();
+  const [scope, setScope] = useState<StatsScope>('global');
   const [languageStats, setLanguageStats] = useState<LanguageStats[] | null>(null);
   const [keyDifficulty, setKeyDifficulty] = useState<KeyDifficulty[] | null>(null);
   const [languageFilter, setLanguageFilter] = useState('');
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetchLanguageStats()
+    setLanguageStats(null);
+    setError(null);
+    fetchLanguageStats(scope)
       .then(setLanguageStats)
       .catch((err: Error) => setError(err.message));
-  }, []);
+  }, [scope]);
 
   useEffect(() => {
-    fetchKeyDifficulty(languageFilter || undefined)
+    setKeyDifficulty(null);
+    setError(null);
+    fetchKeyDifficulty(scope, languageFilter || undefined)
       .then(setKeyDifficulty)
       .catch((err: Error) => setError(err.message));
-  }, [languageFilter]);
+  }, [scope, languageFilter]);
 
   const totals = useMemo(() => {
     if (!languageStats || languageStats.length === 0) return null;
@@ -52,6 +59,28 @@ export function StatsPage() {
   return (
     <section className="viz-root stats-page">
       <h1>Stats</h1>
+
+      <div className="stats-scope">
+        <div className="stats-scope-toggle">
+          <button
+            type="button"
+            className={`btn${scope === 'global' ? ' btn-primary' : ''}`}
+            onClick={() => setScope('global')}
+          >
+            Global
+          </button>
+          <button
+            type="button"
+            className={`btn${scope === 'mine' ? ' btn-primary' : ''}`}
+            onClick={() => setScope('mine')}
+            disabled={!user}
+            title={user ? undefined : 'Sign in with GitHub to see your personal stats'}
+          >
+            My stats
+          </button>
+        </div>
+        {!user && <p className="stats-scope-hint">Sign in with GitHub to see your personal stats.</p>}
+      </div>
 
       {!languageStats ? (
         <p>Loading…</p>

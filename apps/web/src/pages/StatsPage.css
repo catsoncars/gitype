@@ -16,6 +16,28 @@
   gap: 20px;
 }
 
+.stats-scope {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.stats-scope-toggle {
+  display: flex;
+  gap: 6px;
+}
+
+.stats-scope-toggle .btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.stats-scope-hint {
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
 .stat-tiles {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

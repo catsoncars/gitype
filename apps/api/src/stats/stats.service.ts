@@ -6,9 +6,10 @@ import { PrismaService } from '../prisma/prisma.service';
 export class StatsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async getLanguageStats(): Promise<LanguageStats[]> {
+  async getLanguageStats(userId?: string): Promise<LanguageStats[]> {
     const grouped = await this.prisma.session.groupBy({
       by: ['language'],
+      where: userId ? { userId } : undefined,
       _count: { _all: true },
       _avg: { wpm: true, accuracy: true },
       _max: { wpm: true },
@@ -25,10 +26,11 @@ export class StatsService {
       .sort((a, b) => b.runs - a.runs);
   }
 
-  async getKeyDifficulty(language?: string): Promise<KeyDifficulty[]> {
+  async getKeyDifficulty(userId?: string, language?: string): Promise<KeyDifficulty[]> {
+    const sessionFilter = { ...(userId ? { userId } : {}), ...(language ? { language } : {}) };
     const grouped = await this.prisma.sessionKeyStat.groupBy({
       by: ['key'],
-      where: language ? { session: { language } } : undefined,
+      where: Object.keys(sessionFilter).length ? { session: sessionFilter } : undefined,
       _sum: { hits: true, misses: true },
     });
 
