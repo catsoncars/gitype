@@ -1,4 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
-  <rect width="48" height="48" rx="10" fill="#17140f"/>
-  <text x="24" y="31" font-family="'JetBrains Mono', ui-monospace, Consolas, monospace" font-size="20" font-weight="600" fill="#e8a33d" text-anchor="middle">&lt;/&gt;</text>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="20%" stop-color="#c199f0"/>
+      <stop offset="100%" stop-color="#f0b8e8"/>
+    </linearGradient>
+  </defs>
+  <rect width="48" height="48" rx="12" fill="#130f1e"/>
+  <text x="24" y="31" font-family="ui-monospace, Consolas, monospace" font-size="20" font-weight="700" fill="url(#g)" text-anchor="middle">&lt;/&gt;</text>
 </svg>
