@@ -13,18 +13,6 @@
   gap: 10px;
 }
 
-.stat-pill {
-  font-family: var(--mono);
-  font-weight: 600;
-  font-size: 13px;
-  color: var(--text-h);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  padding: 6px 14px;
-  border-radius: 999px;
-  font-variant-numeric: tabular-nums;
-}
-
 .typing-card {
   width: 100%;
   padding: 32px;

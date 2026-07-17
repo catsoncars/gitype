@@ -2,27 +2,84 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 32px;
+  gap: 24px;
   width: 100%;
-  max-width: 400px;
+  max-width: 640px;
 }
 
 .picker-intro {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  align-items: center;
+  gap: 10px;
   text-align: center;
+  padding-top: 12px;
+}
+
+.picker-intro h1 {
+  font-size: 52px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--accent) 20%, #f0b8e8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: var(--accent);
+  -webkit-text-fill-color: transparent;
 }
 
 .picker-intro p {
   color: var(--text);
+  font-size: 15px;
+}
+
+.status-widget {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-bg);
+}
+
+.status-text {
+  font-size: 13px;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+}
+
+.home-stats {
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .picker-card {
   width: 100%;
-  padding: 24px;
+  padding: 28px;
   display: flex;
   flex-direction: column;
+  gap: 20px;
+}
+
+.picker-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 16px;
 }
 
@@ -33,6 +90,16 @@
 .start-button {
   width: 100%;
   margin-top: 4px;
-  padding: 11px 24px;
+  padding: 13px 24px;
   font-size: 15px;
+  border-radius: 999px;
+}
+
+@media (max-width: 520px) {
+  .picker-fields {
+    grid-template-columns: 1fr;
+  }
+  .picker-intro h1 {
+    font-size: 38px;
+  }
 }

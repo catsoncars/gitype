@@ -1,62 +1,44 @@
 :root {
-  --text: #6b6357;
-  --text-h: #1a1610;
-  --text-dim: #948c7d;
-  --bg: #f6f4f1;
-  --surface: #ffffff;
-  --surface-hover: #fbfaf8;
-  --border: #e6e1d9;
-  --border-strong: #d8d1c4;
-  --code-bg: #f4f0e8;
-  --accent: #a15d09;
-  --accent-fg: #ffffff;
-  --accent-bg: rgba(161, 93, 9, 0.1);
-  --accent-border: rgba(161, 93, 9, 0.45);
-  --error: #c5402f;
-  --success: #3d7a3a;
+  --bg: #130f1e;
+  --surface: #2b2740;
+  --surface-hover: #362f4d;
+  --border: rgba(255, 255, 255, 0.07);
+  --border-strong: rgba(255, 255, 255, 0.14);
+  --code-bg: #221e35;
+  --text: #b3aec4;
+  --text-h: #f5f2fa;
+  --text-dim: #7c7590;
+  --accent: #c199f0;
+  --accent-fg: #1c1329;
+  --accent-bg: rgba(193, 153, 240, 0.14);
+  --accent-border: rgba(193, 153, 240, 0.4);
+  --error: #f5879c;
+  --success: #c199f0;
 
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
 
-  --shadow-sm: 0 1px 2px rgba(26, 22, 16, 0.04), 0 1px 1px rgba(26, 22, 16, 0.03);
+  --glow-sm: none;
+  --glow-md: none;
+  --shadow-sm: 0 2px 10px rgba(12, 8, 22, 0.35);
   --shadow-md:
-    0 8px 24px rgba(26, 22, 16, 0.08), 0 2px 6px rgba(26, 22, 16, 0.04);
+    0 20px 48px rgba(12, 8, 22, 0.5), 0 6px 16px rgba(12, 8, 22, 0.35);
 
-  --sans: 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+  --sans:
+    ui-monospace, 'Cascadia Mono', 'Segoe UI Mono', Consolas, 'Liberation Mono', Menlo,
+    monospace;
+  --heading: var(--sans);
+  --mono: var(--sans);
 
-  font: 16px/150% var(--sans);
-  color-scheme: light dark;
+  font: 15px/160% var(--sans);
+  color-scheme: dark;
   color: var(--text);
   background: var(--bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #a8a196;
-    --text-h: #f5f2ec;
-    --text-dim: #6f695d;
-    --bg: #121110;
-    --surface: #1a1815;
-    --surface-hover: #201d19;
-    --border: #2c2822;
-    --border-strong: #3a352c;
-    --code-bg: #201c17;
-    --accent: #e8a33d;
-    --accent-fg: #1a1610;
-    --accent-bg: rgba(232, 163, 61, 0.15);
-    --accent-border: rgba(232, 163, 61, 0.5);
-    --error: #e8654f;
-    --success: #6fbf68;
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45), 0 2px 6px rgba(0, 0, 0, 0.25);
-  }
 }
 
 * {
@@ -73,16 +55,17 @@ h3 {
   font-family: var(--heading);
   font-weight: 600;
   color: var(--text-h);
+  letter-spacing: -0.01em;
+  line-height: 1.25;
 }
 
 h1 {
   font-size: 32px;
-  letter-spacing: -0.5px;
   margin: 0 0 8px;
 }
 h2 {
-  font-size: 18px;
-  letter-spacing: -0.2px;
+  font-size: 16px;
+  font-weight: 500;
   margin: 0 0 12px;
 }
 p {
@@ -92,12 +75,13 @@ p {
 code {
   font-family: var(--mono);
   display: inline-flex;
-  border-radius: 4px;
   color: var(--text-h);
   font-size: 14px;
   line-height: 135%;
   padding: 3px 7px;
   background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
 }
 
 /* Layout */
@@ -120,9 +104,8 @@ code {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
   font: inherit;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 14px;
   padding: 9px 16px;
   border-radius: var(--radius-sm);
@@ -134,23 +117,21 @@ code {
   transition:
     border-color 0.15s ease,
     background-color 0.15s ease,
-    transform 0.1s ease;
+    color 0.15s ease;
 }
 .btn:hover {
   border-color: var(--border-strong);
   background: var(--surface-hover);
-}
-.btn:active {
-  transform: translateY(1px);
 }
 
 .btn-primary {
   background: var(--accent);
   border-color: var(--accent);
   color: var(--accent-fg);
+  font-weight: 500;
 }
 .btn-primary:hover {
-  filter: brightness(1.06);
+  filter: brightness(1.08);
   background: var(--accent);
 }
 
@@ -178,6 +159,18 @@ select:hover {
   border-color: var(--border-strong);
 }
 
+.stat-pill {
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--accent);
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-border);
+  padding: 7px 16px;
+  border-radius: 999px;
+  font-variant-numeric: tabular-nums;
+}
+
 /* Loading / error states */
 .page-status {
   display: flex;
@@ -192,4 +185,16 @@ select:hover {
 .page-status-card {
   width: 100%;
   padding: 20px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

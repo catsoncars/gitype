@@ -4,7 +4,7 @@
   align-items: center;
   gap: 24px;
   width: 100%;
-  max-width: 640px;
+  max-width: 680px;
   text-align: center;
 }
 
@@ -24,14 +24,17 @@
 }
 
 .results-stat strong {
-  font-size: 28px;
-  color: var(--text-h);
+  font-size: 24px;
+  color: var(--accent);
   font-variant-numeric: tabular-nums;
+  text-shadow: var(--glow-sm);
 }
 
 .results-stat span {
   color: var(--text-dim);
-  font-size: 13px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .results-source {
@@ -42,11 +45,11 @@
 .results-source a {
   color: var(--text);
   text-decoration: none;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .results-source a:hover {
-  color: var(--text-h);
+  color: var(--accent);
 }
 
 .results-empty {

@@ -1,10 +1,5 @@
 .viz-root {
-  --chart-bar: #2a78d6;
-}
-@media (prefers-color-scheme: dark) {
-  .viz-root {
-    --chart-bar: #3987e5;
-  }
+  --chart-bar: var(--accent);
 }
 
 .stats-page {
@@ -29,12 +24,12 @@
 }
 
 .stats-scope-toggle .btn:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
 .stats-scope-hint {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--text-dim);
 }
 
@@ -52,15 +47,18 @@
 }
 
 .stat-tile-value {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 600;
-  color: var(--text-h);
+  color: var(--accent);
   font-variant-numeric: tabular-nums;
+  text-shadow: var(--glow-sm);
 }
 
 .stat-tile-label {
-  font-size: 13px;
+  font-size: 11px;
   color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .stats-section {
@@ -82,7 +80,7 @@
   text-align: left;
   padding: 8px 10px;
   border-bottom: 1px solid var(--border);
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .stats-table tr:last-child td {
@@ -92,7 +90,9 @@
 .stats-table th {
   color: var(--text-dim);
   font-weight: 500;
-  font-size: 13px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .stats-table td:not(:first-child),

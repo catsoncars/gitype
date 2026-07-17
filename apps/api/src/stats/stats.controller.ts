@@ -27,6 +27,11 @@ export class StatsController {
   ): Promise<KeyDifficulty[]> {
     return this.statsService.getKeyDifficulty(resolveUserId(scope, user), language);
   }
+
+  @Get('recent-languages')
+  getRecentLanguages(): Promise<string[]> {
+    return this.statsService.getRecentLanguages();
+  }
 }
 
 function resolveUserId(scope: string | undefined, user: User | undefined): string | undefined {

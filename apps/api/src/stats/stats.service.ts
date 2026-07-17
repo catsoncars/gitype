@@ -49,4 +49,20 @@ export class StatsService {
       .sort((a, b) => b.errorRate - a.errorRate)
       .slice(0, 20);
   }
+
+  /** Languages from the most recent sessions site-wide, deduped and most-recent-first — an activity ticker, not an aggregate. */
+  async getRecentLanguages(limit = 6): Promise<string[]> {
+    const recent = await this.prisma.session.findMany({
+      orderBy: { createdAt: 'desc' },
+      take: 30,
+      select: { language: true },
+    });
+
+    const seen = new Set<string>();
+    for (const { language } of recent) {
+      seen.add(language);
+      if (seen.size >= limit) break;
+    }
+    return [...seen];
+  }
 }

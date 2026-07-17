@@ -84,3 +84,11 @@ export async function fetchKeyDifficulty(
   }
   return res.json();
 }
+
+export async function fetchRecentLanguages(): Promise<string[]> {
+  const res = await fetch(`${API_URL}/stats/recent-languages`);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch recent languages (${res.status})`);
+  }
+  return res.json();
+}

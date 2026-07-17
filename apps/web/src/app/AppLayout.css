@@ -2,19 +2,24 @@
   min-height: 100svh;
   display: flex;
   flex-direction: column;
-  background: var(--bg);
+  background:
+    radial-gradient(1000px 560px at 50% -8%, rgba(193, 153, 240, 0.22), transparent 62%),
+    linear-gradient(165deg, #1c1730 0%, #150f24 45%, var(--bg) 100%);
 }
 
 .app-header {
   position: sticky;
-  top: 0;
+  top: 16px;
   z-index: 20;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 24px;
-  border-bottom: 1px solid var(--border);
-  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  margin: 16px 24px 0;
+  padding: 10px 18px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 85%, transparent);
+  box-shadow: var(--shadow-sm);
   backdrop-filter: blur(10px);
 }
 
@@ -25,9 +30,8 @@
 }
 
 .app-logo {
-  font-weight: 700;
-  font-size: 16px;
-  letter-spacing: -0.2px;
+  font-weight: 600;
+  font-size: 15px;
   color: var(--text-h);
   text-decoration: none;
 }
@@ -38,12 +42,12 @@
 }
 
 .app-nav a {
-  color: var(--text);
+  color: var(--text-dim);
   text-decoration: none;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
-  padding: 6px 10px;
-  border-radius: var(--radius-sm);
+  padding: 7px 14px;
+  border-radius: 999px;
 }
 
 .app-nav a:hover {
@@ -52,8 +56,8 @@
 }
 
 .app-nav a.active {
-  color: var(--text-h);
-  background: var(--accent-bg);
+  color: var(--accent-fg);
+  background: var(--accent);
 }
 
 .app-auth {
@@ -65,13 +69,13 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text);
 }
 
 .app-avatar {
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   border: 1px solid var(--border);
 }

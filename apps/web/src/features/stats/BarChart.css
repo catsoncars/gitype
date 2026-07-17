@@ -14,18 +14,21 @@
 }
 
 .bar-label {
-  font-size: 14px;
-  color: var(--text);
+  font-size: 12px;
+  color: var(--text-dim);
   text-align: right;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 
 .bar-track {
   position: relative;
-  height: 18px;
+  height: 16px;
   background: var(--code-bg);
+  border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   overflow: hidden;
 }
@@ -34,12 +37,12 @@
   height: 100%;
   max-height: 24px;
   background: var(--chart-bar);
-  border-radius: var(--radius-sm);
+  box-shadow: var(--glow-sm);
 }
 
 .bar-value {
   font-variant-numeric: tabular-nums;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--text-h);
 }
@@ -49,12 +52,13 @@
   bottom: 100%;
   left: 90px;
   transform: translateY(-6px);
-  background: var(--text-h);
-  color: var(--bg);
+  background: var(--surface);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
   padding: 6px 10px;
   border-radius: var(--radius-sm);
   box-shadow: var(--shadow-md);
-  font-size: 13px;
+  font-size: 12px;
   white-space: nowrap;
   display: flex;
   flex-direction: column;

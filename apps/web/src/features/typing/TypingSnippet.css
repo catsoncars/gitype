@@ -9,7 +9,7 @@
 
 .typing-snippet .pending {
   color: var(--text);
-  opacity: 0.5;
+  opacity: 0.45;
 }
 
 .typing-snippet .correct {
@@ -18,13 +18,11 @@
 
 .typing-snippet .incorrect {
   color: var(--error);
-  background: color-mix(in srgb, var(--error) 15%, transparent);
-  border-radius: 2px;
+  background: color-mix(in srgb, var(--error) 18%, transparent);
 }
 
 .typing-snippet .current {
-  color: var(--text-h);
-  background: var(--accent-bg);
-  outline: 1px solid var(--accent-border);
-  border-radius: 2px;
+  color: var(--accent);
+  border-bottom: 2px solid var(--accent);
+  text-shadow: var(--glow-sm);
 }

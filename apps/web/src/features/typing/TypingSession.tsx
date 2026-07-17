@@ -18,15 +18,23 @@ export function TypingSession({ snippet, onComplete }: TypingSessionProps) {
     inputRef.current?.focus();
   }, []);
 
-  // Tab defaults to shifting focus in a textarea — intercept it and append a
-  // literal tab character instead, since tab-indented source (e.g. gofmt'd Go)
-  // needs to be typeable like any other character.
+  // Tab defaults to shifting focus in a textarea — intercept it. If the
+  // snippet indents with a literal tab (e.g. gofmt'd Go), type that one
+  // character; if it indents with spaces (the common case), fill in the
+  // whole run of spaces at once, like an editor's indent key would.
   function handleKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
-    if (e.key === 'Tab') {
-      e.preventDefault();
-      if (typed.length < snippet.content.length) {
-        handleChange(typed + '\t');
-      }
+    if (e.key !== 'Tab') return;
+    e.preventDefault();
+
+    const next = snippet.content[typed.length];
+    if (next === '\t') {
+      handleChange(typed + '\t');
+      return;
+    }
+    if (next === ' ') {
+      let end = typed.length;
+      while (end < snippet.content.length && snippet.content[end] === ' ') end++;
+      handleChange(snippet.content.slice(0, end));
     }
   }
 
